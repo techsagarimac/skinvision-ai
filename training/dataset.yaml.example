@@ -1,0 +1,10 @@
+# Example Ultralytics dataset file for a single visible-spot class.
+# Copy to datasets/data.yaml and point paths at licensed data you control.
+
+path: ../datasets
+train: images/train
+val: images/val
+test: images/test
+
+names:
+  0: visible_spot

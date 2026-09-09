@@ -1,0 +1,36 @@
+services:
+  backend:
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+    ports:
+      - "8000:8000"
+    environment:
+      APP_ENV: production
+      FRONTEND_ORIGIN: http://localhost:3000
+      DATABASE_URL: sqlite:////data/skinvision.db
+      MODEL_PATH: /models/acne_yolo.pt
+      YOLO_CONFIDENCE: "0.35"
+      DETECTOR_MODE: auto
+      MAX_IMAGE_SIZE: "1280"
+      MAX_UPLOAD_BYTES: "8388608"
+      LOG_LEVEL: INFO
+    volumes:
+      - ./models:/models:ro
+      - backend-data:/data
+
+  frontend:
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile
+      args:
+        NEXT_PUBLIC_API_URL: http://localhost:8000
+    ports:
+      - "3000:3000"
+    environment:
+      NEXT_PUBLIC_API_URL: http://localhost:8000
+    depends_on:
+      - backend
+
+volumes:
+  backend-data:

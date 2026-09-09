@@ -1,0 +1,87 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --canvas: 246 243 237;
+  --ink: 18 22 27;
+  --muted: 90 97 106;
+  --line: 28 33 40;
+  --panel: 255 255 255;
+  --accent: 13 115 119;
+  --accent2: 37 99 135;
+  --shadow: 18 22 27;
+  color-scheme: light;
+}
+
+.dark {
+  --canvas: 8 10 14;
+  --ink: 232 236 239;
+  --muted: 148 157 166;
+  --line: 232 236 239;
+  --panel: 16 20 26;
+  --accent: 61 204 199;
+  --accent2: 146 197 222;
+  --shadow: 0 0 0;
+  color-scheme: dark;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  @apply bg-canvas text-ink antialiased;
+  background-image:
+    radial-gradient(1200px 600px at 10% -10%, rgb(var(--accent) / 0.08), transparent 50%),
+    radial-gradient(900px 500px at 100% 0%, rgb(var(--accent2) / 0.07), transparent 46%);
+  min-height: 100vh;
+}
+
+::selection {
+  background: rgb(var(--accent) / 0.28);
+}
+
+:focus-visible {
+  outline: 2px solid rgb(var(--accent));
+  outline-offset: 3px;
+}
+
+.glass-panel {
+  @apply rounded-3xl border border-line/10 bg-panel/70 shadow-panel backdrop-blur-xl;
+}
+
+.eyebrow {
+  @apply text-[11px] font-medium uppercase tracking-[0.22em] text-muted;
+}
+
+.btn-primary {
+  @apply inline-flex items-center justify-center gap-2 rounded-full bg-accent px-5 py-2.5 text-sm font-medium text-canvas transition hover:opacity-90 disabled:cursor-not-allowed disabled:opacity-50;
+}
+
+.dark .btn-primary {
+  @apply text-ink;
+}
+
+.btn-secondary {
+  @apply inline-flex items-center justify-center gap-2 rounded-full border border-line/15 bg-panel/50 px-5 py-2.5 text-sm font-medium text-ink transition hover:border-line/30 hover:bg-panel;
+}
+
+.btn-ghost {
+  @apply inline-flex items-center justify-center gap-2 rounded-full px-3 py-2 text-sm text-muted transition hover:bg-line/5 hover:text-ink;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
